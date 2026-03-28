@@ -1,0 +1,54 @@
+{
+  "name": "pi-autoresearch-studio",
+  "version": "0.1.0",
+  "description": "Dashboard, plan editor, PR workflow, and orchestration tools for pi autoresearch sessions",
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ],
+    "image": ""
+  },
+  "author": "Jordan Hochenbaum",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "pi",
+    "pi-package",
+    "pi-extension",
+    "autoresearch",
+    "dashboard"
+  ],
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:all": "vitest run --config vitest.all.config.ts",
+    "check": "tsc --noEmit",
+    "lint": "eslint src/ test/",
+    "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
+    "format:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
+    "ci": "npm run check && npm run lint && npm run format:check && npm test"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhochenbaum/pi-autoresearch-studio"
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*",
+    "@mariozechner/pi-tui": "*"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/ws": "^8.18.1",
+    "eslint": "^10.1.0",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1",
+    "vitest": "^4.1.0"
+  },
+  "dependencies": {
+    "ws": "^8.20.0"
+  }
+}

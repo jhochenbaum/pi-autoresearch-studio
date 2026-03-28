@@ -1,0 +1,32 @@
+node_modules/
+backup-v1/
+*.log
+.DS_Store
+
+# Local agent/runtime artifacts
+.pi/
+.impeccable.md
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.*
+
+# Test artifacts
+coverage/
+
+# npm pack artifacts
+*.tgz
+
+# Autoresearch session data (project-specific, not part of the tool)
+autoresearch.jsonl
+autoresearch.md
+autoresearch.ideas.md
+autoresearch.sh
+autoresearch.checks.sh
+
+# Internal planning docs
+REFACTOR.md
+FEATURE_IDEAS.md

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autoresearch — {{CONFIG_NAME}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+<style>{{CSS}}</style>
+</head>
+<body>
+<a href="#tab-dashboard" class="skip-link">Skip to content</a>
+<nav class="nav" aria-label="Primary navigation">
+<div class="nav-left">
+<span class="nav-brand">Autoresearch Studio</span>
+<div class="nav-tabs" role="tablist" aria-label="Dashboard sections">
+<button class="nav-tab active" role="tab" aria-selected="true" aria-controls="tab-dashboard" id="tab-btn-dashboard" data-tab="dashboard" onclick="showTab('dashboard')">Dashboard</button>
+<button class="nav-tab" role="tab" aria-selected="false" aria-controls="tab-plan" id="tab-btn-plan" data-tab="plan" onclick="showTab('plan')">Plan</button>
+<button class="nav-tab" role="tab" aria-selected="false" aria-controls="tab-ideas" id="tab-btn-ideas" data-tab="ideas" onclick="showTab('ideas')">Ideas</button>
+<button class="nav-tab" role="tab" aria-selected="false" aria-controls="tab-activity" id="tab-btn-activity" data-tab="activity" onclick="showTab('activity')">Activity</button>
+</div>
+</div>
+<div class="nav-meta">
+<span id="live-status" class="live-status connecting" aria-live="polite">● Connecting…</span>
+<button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme">☀️ Light</button>
+</div>
+</nav>
+<header class="header">
+<h1>{{CONFIG_NAME}}</h1>
+<p class="sub">{{CONFIG_SUBTITLE}}</p>
+</header>
+<main>
+<section id="tab-dashboard" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-dashboard"></section>
+<section id="tab-plan" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-plan" hidden></section>
+<section id="tab-ideas" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-ideas" hidden></section>
+<section id="tab-activity" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-activity" hidden></section>
+</main>
+<script>
+const D={{DATA_JSON}};
+let PLAN={{PLAN_JSON}};
+let IDEAS={{IDEAS_JSON}};
+const COMMITS={{COMMITS_JSON}};
+{{JS}}
+</script>
+</body>
+</html>

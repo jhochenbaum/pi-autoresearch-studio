@@ -312,9 +312,11 @@ npm run ci                # All of the above
 ```
 
 ## TUI Dashboard
+
 https://github.com/user-attachments/assets/54981011-d39b-4d61-a319-58b21c69bbcf
 
 ## Web Dashboard
+
 https://github.com/user-attachments/assets/d513c70b-61b7-4283-8889-48b0b5b8f0ef
 
 ## License

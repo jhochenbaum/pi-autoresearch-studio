@@ -1,12 +1,11 @@
-# pi-autoresearch-studio
+<div align="center">
+<img height="350" alt="pi-autoresearch-studio-logo" src="https://github.com/user-attachments/assets/2714516c-f586-46f7-9cff-80ce0468bcc8" />
 
-The control plane for [pi-autoresearch](https://github.com/davebcn87/pi-autoresearch) — the [pi](https://pi.dev/) implementation of Karpathy's [autoresearch](https://github.com/karpathy/autoresearch).
+# pi-autoresearch-studio
+### The control plane for pi-autoresearch — a [pi](https://pi.dev/) implementation of Andrej Karpathy's [autoresearch](https://github.com/karpathy/autoresearch).
 
 **[Features](#features)** · **[Install](#install)** · **[Usage](#usage)** · **[PR Workflow](#pr-workflow)** · **[Development](#development)**
-
----
-
-<!-- TODO: Add gif/video here -->
+</div>
 
 ---
 
@@ -14,9 +13,17 @@ The control plane for [pi-autoresearch](https://github.com/davebcn87/pi-autorese
 
 Give an AI agent an optimization target, let it experiment autonomously: edit code → run benchmark → measure → keep improvements, discard regressions → repeat. You come back to a log of experiments and (hopefully) a better result. Works for anything with a measurable metric: test speed, bundle size, LLM training loss, build times, etc.
 
-**pi-autoresearch** provides the loop engine — `run_experiment`, `log_experiment`, confidence scoring, git commit/revert, and a built-in status widget (`Ctrl+X` / `Ctrl+Shift+X`).
+**[pi-autoresearch](https://github.com/davebcn87/pi-autoresearch)** provides the loop engine — `run_experiment`, `log_experiment`, confidence scoring, git commit/revert, and a built-in status widget (`Ctrl+X` / `Ctrl+Shift+X`).
 
 **pi-autoresearch-studio** adds the control plane on top. Autoresearch-studio reads the same `autoresearch.jsonl` and `autoresearch.md` files — it complements the built-in UI, it doesn't replace it.
+
+<img width="1728" height="712" alt="Image" src="https://github.com/user-attachments/assets/844fcbbe-7853-498c-92c7-f07a62d3ba72" />
+
+<div align="center">
+  
+**[🎬 TUI Dashboard](##tui-dashboard)** · **[🎬 Web Dashboard](##web-dashboard)**
+
+</div>
 
 ---
 
@@ -303,6 +310,12 @@ npm run lint              # ESLint
 npm run format            # Prettier
 npm run ci                # All of the above
 ```
+
+## TUI Dashboard
+https://github.com/user-attachments/assets/54981011-d39b-4d61-a319-58b21c69bbcf
+
+## Web Dashboard
+https://github.com/user-attachments/assets/d513c70b-61b7-4283-8889-48b0b5b8f0ef
 
 ## License
 

@@ -669,17 +669,27 @@ export async function executePR(
         `Local: ${cleanupLocal.length}\nRemote: ${cleanupRemote.length}`
       );
       if (shouldCleanup) {
+        const failedRemote: string[] = [];
         for (const branch of cleanupRemote) {
           try {
             await git(pi, ["push", "origin", "--delete", branch], cwd);
-          } catch {}
+          } catch {
+            failedRemote.push(branch);
+          }
         }
         for (const branch of cleanupLocal) {
           try {
             await git(pi, ["branch", "-D", branch], cwd);
           } catch {}
         }
-        ctx.ui.notify("Cleaned up partially-created branches.", "info");
+        if (failedRemote.length > 0) {
+          ctx.ui.notify(
+            `Cleaned up local branches but failed to delete ${failedRemote.length} remote branch(es):\n  ${failedRemote.join("\n  ")}\nManually delete with: git push origin --delete <branch>`,
+            "warning"
+          );
+        } else {
+          ctx.ui.notify("Cleaned up partially-created branches.", "info");
+        }
       } else {
         ctx.ui.notify(
           `Left partially-created branches intact. Local: ${cleanupLocal.join(", ") || "none"}; Remote: ${cleanupRemote.join(", ") || "none"}`,
@@ -718,7 +728,7 @@ async function createConsolidatedPR(
 
   let cherryPickOk = true;
   for (const hash of chronological) {
-    if (!(await cherryPickOrAbort(pi, cwd, hash, currentBranch, prBranch, ctx))) {
+    if (!(await cherryPickOrAbort(pi, cwd, hash, currentBranch, ctx))) {
       cherryPickOk = false;
       break;
     }
@@ -737,7 +747,7 @@ async function createConsolidatedPR(
 
     let mergeBaseOk = true;
     for (const hash of chronological) {
-      if (!(await cherryPickOrAbort(pi, cwd, hash, currentBranch, prBranch, ctx))) {
+      if (!(await cherryPickOrAbort(pi, cwd, hash, currentBranch, ctx))) {
         mergeBaseOk = false;
         break;
       }
@@ -831,7 +841,7 @@ async function createStackedPRs(
     await git(pi, ["checkout", "-b", prBranch, prevBranch], cwd);
     branchTracker.local.add(prBranch);
 
-    if (!(await cherryPickOrAbort(pi, cwd, hash, currentBranch, prBranch, ctx))) {
+    if (!(await cherryPickOrAbort(pi, cwd, hash, currentBranch, ctx))) {
       throw new Error("Cherry-pick failed");
     }
 
@@ -890,7 +900,7 @@ async function createIndividualPRs(
     await git(pi, ["checkout", "-b", prBranch, baseRef], cwd);
     branchTracker.local.add(prBranch);
 
-    if (!(await cherryPickOrAbort(pi, cwd, hash, currentBranch, prBranch, ctx))) {
+    if (!(await cherryPickOrAbort(pi, cwd, hash, currentBranch, ctx))) {
       throw new Error("Cherry-pick failed");
     }
 
@@ -982,7 +992,6 @@ async function cherryPickOrAbort(
   cwd: string,
   hash: string,
   returnBranch: string,
-  cleanupBranch: string,
   ctx: ExtensionCommandContext
 ): Promise<boolean> {
   if (await smartCherryPick(pi, cwd, hash)) {
@@ -990,7 +999,6 @@ async function cherryPickOrAbort(
   }
   ctx.ui.notify(`Cherry-pick failed for ${hash.slice(0, 7)}: non-autoresearch conflicts`, "error");
   await forceCheckout(pi, cwd, returnBranch);
-  await deleteBranch(pi, cwd, cleanupBranch);
   return false;
 }
 
@@ -1223,12 +1231,6 @@ async function forceCheckout(pi: ExtensionAPI, cwd: string, branch: string): Pro
   } catch {}
 }
 
-/** Delete a branch, ignoring errors. Never throws. */
-async function deleteBranch(pi: ExtensionAPI, cwd: string, branch: string): Promise<void> {
-  try {
-    await pi.exec("git", ["branch", "-D", branch], { cwd });
-  } catch {}
-}
 
 /**
  * Find the merge-base between the current branch and origin/main.

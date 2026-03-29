@@ -21,7 +21,7 @@ Give an AI agent an optimization target, let it experiment autonomously: edit co
 
 <div align="center">
   
-**[🎬 TUI Dashboard](##tui-dashboard)** · **[🎬 Web Dashboard](##web-dashboard)**
+**[🎬 TUI Dashboard](#tui-dashboard)** · **[🎬 Web Dashboard](#web-dashboard)**
 
 </div>
 
